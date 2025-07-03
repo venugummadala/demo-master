@@ -1,0 +1,12 @@
+{
+    "editor.indentSize": 4,
+    "editor.tabSize": 4,
+    "java.server.launchMode": "Standard",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "java.semanticHighlighting.enabled": true
+}

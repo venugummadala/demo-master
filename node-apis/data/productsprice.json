@@ -1,0 +1,62 @@
+[
+  {
+    "product_uid": "36969",
+    "unit_price": 15.63,
+    "unit_price_measure": "kg",
+    "unit_price_measure_amount": 1
+  },
+  {
+    "product_uid": "35268",
+    "unit_price": 7.5,
+    "unit_price_measure": "kg",
+    "unit_price_measure_amount": 1
+  },
+  {
+    "product_uid": "98559",
+    "unit_price": 0.5,
+    "unit_price_measure": "g",
+    "unit_price_measure_amount": 100
+  },
+  {
+    "product_uid": "26959",
+    "unit_price": 0.42,
+    "unit_price_measure": "g",
+    "unit_price_measure_amount": 100
+  },
+  {
+    "product_uid": "69963",
+    "unit_price": 2.37,
+    "unit_price_measure": "kg",
+    "unit_price_measure_amount": 1
+  },
+  {
+    "product_uid": "88372",
+    "unit_price": 1.88,
+    "unit_price_measure": "g",
+    "unit_price_measure_amount": 100
+  },
+  {
+    "product_uid": "87237",
+    "unit_price": 1.46,
+    "unit_price_measure": "g",
+    "unit_price_measure_amount": 100
+  },
+  {
+    "product_uid": "1001",
+    "unit_price": 8.57,
+    "unit_price_measure": "kg",
+    "unit_price_measure_amount": 1
+  },
+  {
+    "product_uid": "597272",
+    "unit_price": 1.88,
+    "unit_price_measure": "g",
+    "unit_price_measure_amount": 100
+  },
+  {
+    "product_uid": "866985",
+    "unit_price": 5.84,
+    "unit_price_measure": "kg",
+    "unit_price_measure_amount": 1
+  }
+]

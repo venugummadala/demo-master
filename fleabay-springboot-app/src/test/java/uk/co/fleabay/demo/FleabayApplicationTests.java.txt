@@ -1,0 +1,154 @@
+package uk.co.fleabay.demo;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
+import uk.co.fleabay.demo.client.model.FleabayProduct;
+import uk.co.fleabay.demo.client.model.FleabayProductPrice;
+import uk.co.fleabay.demo.controller.response.CombinedFleabayProduct;
+import uk.co.fleabay.demo.services.ProductsService;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@SpringBootTest
+class FleabayApplicationTests {
+    private static final Logger logger = LoggerFactory.getLogger(FleabayApplicationTests.class);
+
+    @InjectMocks
+    private ProductsService unifiedProductsService;
+    @Test
+    void contextLoads() {
+        //Please check SomeTest
+    }
+
+
+/
+
+    @Test
+    void testMergeProductsWithProductsPriceByProductType() throws JsonProcessingException {
+        logger.info("Starting with Merge");
+        Set productsPrice = new HashSet<>();
+        productsPrice.add(new FleabayProductPrice(6447344, 15.63, "kg", 1));
+
+        Set products = new HashSet<>();
+        products.add(new FleabayProduct(6447344, "BUDGET", "Salmon Fillets x2 240g", "https://www.fleabay.co.uk/gol-ui/product/fleabay-responsibly-sourced-scottish-salmon-fillet-x2-240g"
+        ));
+
+    //    private List<CombinedFleabayProduct> mergeProductsWithPrices(Tuple2<Set<FleabayProduct>,
+    // Set<FleabayProductPrice>> tuple) {
+
+    List<CombinedFleabayProduct> result = unifiedProductsService.mergeProductsWithPrices(Tuples.of(products, productsPrice));
+
+        assertNotNull(result);
+        logger.info("Unified Product List Size: " + result.size());
+        result.forEach( z -> logger.info( " z " + z));
+        assertEquals(1, result.size());
+        CombinedFleabayProduct combinedFleabayProduct = result.get(0);
+        assertEquals(combinedFleabayProduct.productUid(), 6447344);
+        assertNotNull(combinedFleabayProduct.fullUrl());
+    }
+
+
+
+    @Test
+    void testMergeProductsWithProductsPriceByProductTypeBASIC2Filter() throws JsonProcessingException {
+        logger.info("Starting with Merge");
+        Set productsPrice = new HashSet<>();
+        productsPrice.add(new FleabayProductPrice(6447344, 15.63, "kg", 1));
+
+        Set products = new HashSet<>();
+        products.add(new FleabayProduct(6447344, "BUDGET", "Salmon Fillets x2 240g", "https://www.fleabay.co.uk/gol-ui/product/fleabay-responsibly-sourced-scottish-salmon-fillet-x2-240g"
+        ));
+
+
+
+        List<CombinedFleabayProduct> result = unifiedProductsService.mergeProductsWithProductsPrice(products, productsPrice, "LUXURY");
+
+        assertNotNull(result);
+        logger.info("Unified Product List Size: " + result.size());
+        result.forEach( z -> logger.info( " z " + z));
+        assertEquals(0, result.size());
+
+    }
+
+
+    @Test
+    void testMergeProductsWithProductsPriceByProductTypeBASIC2DataAndBASICFilter() throws JsonProcessingException {
+        logger.info("Starting with Merge");
+        Set productsPrice = new HashSet<>();
+        productsPrice.add(new FleabayProductPrice(6447344, 15.63, "kg", 1));
+
+        Set products = new HashSet<>();
+        products.add(new FleabayProduct(6447344, "LUXURY", "Salmon Fillets x2 240g", "https://www.fleabay.co.uk/gol-ui/product/fleabay-responsibly-sourced-scottish-salmon-fillet-x2-240g"
+        ));
+
+
+
+        List<CombinedFleabayProduct> result = unifiedProductsService.mergeProductsWithProductsPrice(products, productsPrice, "BUDGET");
+
+        assertNotNull(result);
+        logger.info("Unified Product List Size: " + result.size());
+        result.forEach( z -> logger.info( " z " + z));
+        assertEquals(0, result.size());
+
+    }
+
+
+
+
+    @Test
+    void testMergeProductsWithProductsPriceByProductTypeBASIC2Data() throws JsonProcessingException {
+        logger.info("Starting with Merge");
+        Set productsPrice = new HashSet<>();
+        productsPrice.add(new FleabayProductPrice(6447344, 15.63, "kg", 1));
+
+        Set products = new HashSet<>();
+        products.add(new FleabayProduct(6447344, "LUXURY", "Salmon Fillets x2 240g", "https://www.fleabay.co.uk/gol-ui/product/fleabay-responsibly-sourced-scottish-salmon-fillet-x2-240g"
+        ));
+        List<CombinedFleabayProduct> result = unifiedProductsService.mergeProductsWithProductsPrice(products, productsPrice, "BUDGET");
+        assertNotNull(result);
+        logger.info("Unified Product List Size: " + result.size());
+        result.forEach( z -> logger.info( " z " + z));
+        assertEquals(0, result.size());
+
+    }
+
+
+
+    @Test
+    void testMergeProductsWithProductsPriceWithoutFiltering() throws JsonProcessingException {
+        logger.info("Starting with Merge");
+        Set productsPrice = new HashSet<>();
+        productsPrice.add(new FleabayProductPrice(6447344, 15.63, "kg", 1));
+
+        Set products = new HashSet<>();
+        products.add(new FleabayProduct(6447344, "BUDGET", "Salmon Fillets x2 240g", "https://www.fleabay.co.uk/gol-ui/product/fleabay-responsibly-sourced-scottish-salmon-fillet-x2-240g"
+        ));
+
+
+        List<CombinedFleabayProduct> result = unifiedProductsService.mergeProductsWithProductsPrice(products, productsPrice, "");
+
+        assertNotNull(result);
+        logger.info("Unified Product List Size: " + result.size());
+        result.forEach( z -> logger.info( " z " + z));
+        assertEquals(1, result.size());
+        CombinedFleabayProduct combinedFleabayProduct = result.get(0);
+        assertEquals(combinedFleabayProduct.productUid(), 6447344);
+        assertNotNull(combinedFleabayProduct.fullUrl());
+    }
+//Please note : Further tests for filtering are not required as URL is modified for filtering by query
+
+
+
+
+}
