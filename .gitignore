@@ -1,0 +1,3 @@
+/log-analytics-stream-processing/target
+log-analytics-stream-processing/src/test/.DS_Store
+*.log
